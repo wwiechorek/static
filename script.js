@@ -1,12 +1,3 @@
-function setAvailableHeight(height) {
-    document.querySelector('.fixed-center .available').innerHTML = height;
-    document.querySelector('.fixed-center').style.height = height + `px`;
-}
-
-function setKeyboardHeight(height) {
-  document.querySelector('.fixed-center .keyboard').innerHTML = height;
-}
-
 window.onload = function() {
   document.body.addEventListener("click", function(e) {
     if(['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
@@ -18,4 +9,12 @@ window.onload = function() {
       focusedElement.blur();
     }
   })
+}
+
+window.addEventListener('message', (event) => {
+  document.getElementById('log').innerHTML += 'Received message from React Native:' + event.data + "\n<br>";
+});
+
+function sendMessageToReactNative(data) {
+  window.ReactNativeWebView.postMessage(JSON.stringify(data));
 }
